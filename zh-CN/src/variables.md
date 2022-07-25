@@ -7,8 +7,8 @@
 
 // 修复下面代码的错误并尽可能少的修改
 fn main() {
-    let x: i32; // 未初始化，但被使用
-    let y: i32; // 未初始化，也未被使用
+    let x: i32 = 2; // 未初始化，但被使用
+    let _y: i32; // 未初始化，也未被使用
     println!("x is equal to {}", x); 
 }
 ```
@@ -18,8 +18,8 @@ fn main() {
 
 // 完形填空，让代码编译
 fn main() {
-    let __ = 1;
-    __ += 2; 
+    let x = 1;
+    let x = x + 2;
     
     println!("x = {}", x); 
 }
@@ -37,6 +37,7 @@ fn main() {
         let y: i32 = 5;
         println!("x 的值是 {}, y 的值是 {}", x, y);
     }
+    let y = x;
     println!("x 的值是 {}, y 的值是 {}", x, y); 
 }
 ```
@@ -46,11 +47,12 @@ fn main() {
 ```rust,editable
 // 修复错误
 fn main() {
-    println!("{}, world", x); 
+    define_x(); 
 }
 
 fn define_x() {
     let x = "hello";
+    println!("{}, world", x);
 }
 ```
 
@@ -64,10 +66,10 @@ fn main() {
     let x: i32 = 5;
     {
         let x = 12;
-        assert_eq!(x, 5);
+        assert_eq!(x, 12);
     }
 
-    assert_eq!(x, 12);
+    assert_eq!(x, 5);
 
     let x = 42;
     println!("{}", x); // 输出 "42".
@@ -81,8 +83,8 @@ fn main() {
     let mut x: i32 = 1;
     x = 7;
     // 遮蔽且再次绑定
-    let x = x; 
-    x += 3;
+    let x = x; // 删除此行而不是下一行也可通过编译，但是没有遮蔽，而是使下一行可以工作
+    // x += 3;
 
 
     let y = 4;
@@ -100,9 +102,10 @@ fn main() {
 > 注意: 你可以使用两种方法解决，但是它们没有一种是移除 `let x = 1` 所在的代码行
 
 ```rust,editable
-
+#[allow(unused_variables)] // 允许 unused variable
 fn main() {
-    let x = 1; 
+    let _x = 1; 
+    let y = 1;
 }
 
 // compiler warning: unused variable: `x`
@@ -117,7 +120,7 @@ fn main() {
 
 // 修复下面代码的错误并尽可能少的修改
 fn main() {
-    let (x, y) = (1, 2);
+    let (mut x, y) = (1, 2);
     x += 2;
 
     assert_eq!(x, 3);
@@ -139,7 +142,7 @@ fn main() {
     (x,..) = (3, 4);
     [.., y] = [1, 2];
     // 填空，让代码工作
-    assert_eq!([x,y], __);
+    assert_eq!([x,y], [3,2]);
 } 
 ```
 
