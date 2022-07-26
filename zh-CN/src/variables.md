@@ -7,8 +7,8 @@
 
 // 修复下面代码的错误并尽可能少的修改
 fn main() {
-    let x: i32 = 2; // 未初始化，但被使用
-    let _y: i32; // 未初始化，也未被使用
+    let x: i32 = 2; //[NOTE] 未初始化，但被使用
+    let _y: i32; //[NOTE] 未初始化，也未被使用
     println!("x is equal to {}", x); 
 }
 ```
@@ -82,13 +82,13 @@ fn main() {
 fn main() {
     let mut x: i32 = 1;
     x = 7;
-    // 遮蔽且再次绑定
+    //[NOTE] 遮蔽且再次绑定
     let x = x; // 删除此行而不是下一行也可通过编译，但是没有遮蔽，而是使下一行可以工作
     // x += 3;
 
 
     let y = 4;
-    // 遮蔽
+    //[NOTE] 遮蔽
     let y = "I can also be bound to text!"; 
 }
 ```
